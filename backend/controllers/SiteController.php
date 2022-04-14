@@ -16,6 +16,8 @@ class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
+     * extend class's functionality
+     * like filters, block or change req res
      */
     public function behaviors()
     {
@@ -62,7 +64,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index'); // render actual view file
+        return $this->render('index'); // render actual view file, 'index' is rendered inside layout
     }
 
     /**
@@ -76,7 +78,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $this->layout = 'blank';
+        $this->layout = 'auth';
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {

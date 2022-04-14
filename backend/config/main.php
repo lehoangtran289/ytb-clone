@@ -6,12 +6,16 @@ $params = array_merge(
     require __DIR__ . '/params-local.php'
 );
 
+// Yii::$app configs
 return [
     'id' => 'app-backend',
+    'name' => 'My Yii2 Application',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+
+    // predefined core application components, during configuration phase
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -37,7 +41,6 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-
         // beautify URL
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -45,7 +48,9 @@ return [
             'rules' => [
             ],
         ],
-
+        'assetManager' => [
+            'appendTimestamp' => true,
+        ],
     ],
     'params' => $params,
 ];
