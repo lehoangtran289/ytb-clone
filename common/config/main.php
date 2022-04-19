@@ -1,5 +1,6 @@
 <?php
 return [
+    'name' => 'My Yii2 Application',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',

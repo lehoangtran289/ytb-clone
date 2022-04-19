@@ -9,7 +9,6 @@ $params = array_merge(
 // Yii::$app configs
 return [
     'id' => 'app-backend',
-    'name' => 'My Yii2 Application',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
