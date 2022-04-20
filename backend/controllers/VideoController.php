@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\Video;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,6 +24,15 @@ class VideoController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'] // only allow authorized
+                        ]
+                    ]
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(), // verb filter -> rules for delete
                     'actions' => [
@@ -41,7 +51,8 @@ class VideoController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Video::find(),
+            // find() return instance of VideoQuery
+            'query' => Video::find()->creator(Yii::$app->user->id)
             /*
             'pagination' => [
                 'pageSize' => 50
