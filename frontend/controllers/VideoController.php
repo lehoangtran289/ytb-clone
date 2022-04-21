@@ -94,6 +94,29 @@ class VideoController extends Controller
         ]);
     }
 
+    public function actionDislike($video_id)
+    {
+        $video = $this->findVideo($video_id);
+        $userId = \Yii::$app->user->id;
+
+        $VideoLikeDislike = VideoLike::find()
+            ->userIdVideoId($video_id, $userId)
+            ->one();
+
+        if (!$VideoLikeDislike) {
+            $this->saveLikeDislike($video_id, $userId, VideoLike::TYPE_DISLIKE);
+        } else if ($VideoLikeDislike->type == VideoLike::TYPE_DISLIKE) {
+            $VideoLikeDislike->delete();
+        } else {
+            $VideoLikeDislike->delete();
+            $this->saveLikeDislike($video_id, $userId, VideoLike::TYPE_DISLIKE);
+        }
+
+        return $this->renderAjax('_button', [ //This method doesn't care about layout
+            'model' => $video
+        ]);
+    }
+
     protected function saveLikeDislike($video_id, $userId, $type)
     {
         $videoLike = new VideoLike();
