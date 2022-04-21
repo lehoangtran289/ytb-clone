@@ -25,6 +25,7 @@ use yii\web\UploadedFile;
  * @property int|null $created_by
  *
  * @property User $createdBy
+ * @property VideoLike[] $likes
  */
 class Video extends \yii\db\ActiveRecord
 {
@@ -122,6 +123,15 @@ class Video extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     * ggetter like this could allow view to call like: "$model->likes"
+     */
+    public function getLikes()
+    {
+        return $this->hasMany(VideoLike::class, ['video_id' => 'video_id'])->liked();
+    }
+
+    /**
      * {@inheritdoc}
      * @return \common\models\query\VideoQuery the active query used by this AR class.
      */
@@ -202,6 +212,14 @@ class Video extends \yii\db\ActiveRecord
         $thumbnailPath = Yii::getAlias('@frontend/web/storage/thumbs/' . $this->video_id . '.jpg');
         if (file_exists($thumbnailPath))
             unlink($thumbnailPath);
+    }
+
+    public function isLikedBy($userId)
+    {
+        return VideoLike::find()
+            ->userIdVideoId($this->video_id, $userId)
+            ->liked()
+            ->one();
     }
 
 }

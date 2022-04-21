@@ -1,7 +1,12 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $model \common\models\Video */
+
+use yii\helpers\Url;
+use yii\widgets\Pjax as Pjax;
+
 ?>
 
 <div class="row">
@@ -21,12 +26,13 @@
                 <?php echo Yii::$app->formatter->asDate($model->created_at) ?>
             </div>
             <div>
-                <button class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-thumbs-up"></i> 9K
-                </button>
-                <button class="btn btn-sm btn-outline-secondary">
-                    <i class="fas fa-thumbs-down"></i> 123
-                </button>
+                <?php Pjax::begin() ?>
+
+                <?php echo $this->render('_button', [
+                        'model' => $model
+                ]) ?>
+
+                <?php Pjax::end() ?>
             </div>
         </div>
     </div>
