@@ -36,8 +36,10 @@ use yii\widgets\Pjax as Pjax;
             </div>
         </div>
         <div>
-            <p>posted by <?php echo $model->createdBy->username ?></p>
-            <?php echo \yii\helpers\Html::encode($model->description) ?>
+            <p>
+                <?php echo \common\helpers\Html::channelLink($model->createdBy) ?>
+            </p>
+            <?php echo yii\helpers\Html::encode($model->description) ?>
         </div>
     </div>
     <div class="col-sm-4">

@@ -23,7 +23,7 @@ use yii\helpers\Url as Url;
     <div class="card-body p-2">
         <h6 class="card-title m-1 font-weight-bold"><?php echo $model->title ?></h6>
         <p class="card-text text-muted m-1">
-            <?php echo $model->createdBy->username ?>
+            <?php echo \common\helpers\Html::channelLink($model->createdBy) ?>
         </p>
         <p class="card-text text-muted m-0">
             <?php echo $model->getViews()->count() ?>
